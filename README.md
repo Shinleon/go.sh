@@ -18,7 +18,7 @@ The last part is that you may need to change how python is run/calling the scrip
 Those are the three volitile parts in terms of running on another machine.
 
 In order to easily run the program, I use 
-> alias go="source ~$HOME/bin/go/go.sh" 
+> alias go="source $HOME/bin/go/go.sh" 
 
 so that I can simply type
 > go \<parameters\>
