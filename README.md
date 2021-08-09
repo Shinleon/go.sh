@@ -24,3 +24,6 @@ so that I can simply type
 > go \<parameters\>
 
 to use the script but you can also modify your $PATH variable if you want to, which might make sense, especially if you're going for the 'bin' folder.
+
+Of course, this would all be fixed if I made an installer that automated everything playing nice, but we'll put that off for a bit.
+I'd rather figure out how to pretty print the current aliases before getting into that.
