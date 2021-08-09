@@ -3,8 +3,13 @@ import os
 import csv
 
 def init():
-    csv_location = 'bin/go/go_data/directory_alias.csv'
-    return os.path.join(os.path.expanduser('~'), csv_location)
+
+    csv_location = 'bin/go/go_data'
+    csv_loc_true = os.path.join(os.path.expanduser('~'), csv_location)
+    if not os.path.exists(csv_loc_true):
+        os.mkdir(csv_loc_true)
+    csv_name = 'directory_alias.csv'
+    return os.path.join(os.path.expanduser('~'), csv_location, csv_name)
 
 def in_csv(f_dir, alias):
     with open(f_dir, 'r') as inp:
