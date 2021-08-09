@@ -29,7 +29,7 @@ then
     else
         #echo "\"$1\" doesn't exist as a directory"
         #echo "going to check aliases"
-        a=`python3 $PY_GO $1`
+        a=`$PYTHON $PY_GO $1`
         # echo $a
         if [ -d $a ]
         then 
