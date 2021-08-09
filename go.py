@@ -3,7 +3,7 @@ import os
 import csv
 
 def init():
-    csv_location = 'bin/go_data/directory_alias.csv'
+    csv_location = 'bin/go/go_data/directory_alias.csv'
     return os.path.join(os.path.expanduser('~'), csv_location)
 
 def in_csv(f_dir, alias):
