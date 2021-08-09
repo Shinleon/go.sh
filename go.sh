@@ -8,7 +8,8 @@
 #     echo $argument 
 # done
 
-PY_GO="~/bin/go/go.py"
+PY_GO="$HOME/bin/go/go.py"
+PYTHON="python3"
 if [ $# -gt 2 ]
 then
     echo "This script doesn't need more than two parameters"
@@ -16,7 +17,7 @@ elif [ $# -eq 2 ]
 then
     # echo "There's a command and an alias"
     # echo "assuming current directory is the directory"
-    a=`python3 $PY_GO $1 $2`
+    a=`$PYTHON $PY_GO $1 $2`
     echo $a
 elif [ $# -eq 1 ]
 then
@@ -39,7 +40,7 @@ then
         fi
     fi
 else
-    a=`python3 $PY_GO`
+    a=`$PYTHON $PY_GO`
     echo
     echo "The command \`go\` is meant to help with navigation. It's purpose is for you"
     echo "to store commonly used directories as aliases and be able to easily navigate"
