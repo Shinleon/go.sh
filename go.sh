@@ -8,7 +8,7 @@
 #     echo $argument 
 # done
 
-PY_GO="~/bin/go/go.py"
+PY_GO="$HOME/bin/go/go.py"
 if [ $# -gt 2 ]
 then
     echo "This script doesn't need more than two parameters"
