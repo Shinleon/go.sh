@@ -51,22 +51,32 @@ def rm_frm_csv(f_dir, alias):
     return f"Removes alias \"{alias}\" tied to  \"{directory}\""
 
 def read_directories(f_dir):
-    ret = ""
+    ret = []
+    max_alias_len = 0
+    max_path_len = 0
     with open(f_dir, 'r') as inp:
         csv_reader = csv.reader(inp)
         for row in csv_reader:
-            ret += str(row)
-        ret += "   "
-    return ret
+            if len(row[0]) > max_alias_len:
+                max_alias_len = len(row[0])
+            if len(row[1]) > max_path_len:
+                max_path_len = len(row[1])
+            ret.append([row[0], row[1]])
+    return ret, max_alias_len, max_path_len
 
-
+def spaces(l):
+    return ' '*l
 
 def main():
     parameters = sys.argv[1:]
 
     if len(parameters) == 0:
-        all_data = read_directories(storage_dir)
-        print(all_data)
+        all_data, pad_alias, pad_path = read_directories(storage_dir)
+        for data in all_data:
+            print(
+                data[0]+ spaces(pad_alias - len(data[0])) +
+                spaces(4) + spaces(pad_path-len(data[1])) + 
+                data[1])
     elif len(parameters) == 1:
         #print("We should move to", parameters[0])
         directory = in_csv(storage_dir, parameters[0])

@@ -34,6 +34,7 @@ then
         if [ -d $a ]
         then 
             cd $a
+	        clear
             ls -liFAG
         else
             echo "No such directory or alias \"$1\""
@@ -46,8 +47,8 @@ else
     echo "to store commonly used directories as aliases and be able to easily navigate"
     echo "to them by typing \"go <alias>\". Of course you will need to be able to add"
     echo "and remove alias directories so there are two variations that come with \`go\`"
-    echo "In order to get full results please run by prepending \`source\` so that the"
-    echo "script is capable of changing directories"
+    echo "In order for the script to run properly, please run by prepending \`source\` as"
+    echo "the script needs to be capable of changing directories"
     echo
     echo "The possible entry formats are"
     echo "1:: go add <alias>  # which assumes the current directory is the one to alias as"
@@ -56,6 +57,6 @@ else
     echo "4:: go # which will print out this help message"
     echo
     echo "list of [current aliases, directories]"
+
     echo $a
-    
 fi
