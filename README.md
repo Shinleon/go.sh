@@ -30,16 +30,16 @@ If you type 'go \<directory or alias\>', the program will first check the direct
 the aliases. This means that if you attempt to create an alias to a directory using the tilde 
 or a string that is a valid path, it won't work properly. 
 
-If you just type 'go alias ~', the shell you're using will just expand the tilde to the home 
+If you just type 'go alias \~', the shell you're using will just expand the tilde to the home 
 directory, and if you type 'go \<your home directory\>', as it checks for directories then alises,
 you'll just end up going to the home directory instead of the directory where you originally
 intended to alias to.
-If you type "go alias '~'" , the tilde won't be automatically expanded, but if you attempt to type
-'go ~' in order to use the alias, the tilde will be then automatically expanded to your home
+If you type "go alias '\~'" , the tilde won't be automatically expanded, but if you attempt to type
+'go \~' in order to use the alias, the tilde will be then automatically expanded to your home
 directory, placing you in your home directory instead of the directory where you wanted to alias
-to. You could get around this and use the tilde as an alias by typing 'go "~"' which will then
+to. You could get around this and use the tilde as an alias by typing 'go "\~"' which will then
 be properly interpreted by both the shell and the go script as wanting to go to the directory
-that the go script has recorded under the name '~'.
+that the go script has recorded under the name '\~'.
 
 Either way, just don't bully the script or you'll end up
 confusing the script on where it is you're tring to go.
