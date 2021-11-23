@@ -45,7 +45,7 @@ Either way, just don't bully the script or you'll end up
 confusing the script on where it is you're tring to go.
 
 
-Things to add
+## Things to add
 - recommendations if you misspell things. 
 - Fuzzy search(?) 
 - tab autocomplete for aliases not just directories
