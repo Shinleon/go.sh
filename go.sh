@@ -25,6 +25,7 @@ then
     if [ -d $1 ]
     then
         cd $1
+        clear
         ls -liFAG
     else
         #echo "\"$1\" doesn't exist as a directory"
@@ -34,7 +35,7 @@ then
         if [ -d $a ]
         then 
             cd $a
-	        clear
+            clear
             ls -liFAG
         else
             echo "No such directory or alias \"$1\""

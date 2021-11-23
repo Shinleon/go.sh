@@ -19,8 +19,6 @@ def in_csv(f_dir, alias):
     return None
 
 def add_to_csv(f_dir, alias, out_dir=os.getcwd()):
-    if alias == "alias":
-        return "cannot add an alias named \"alias\""
     temp_dir = in_csv(f_dir, alias)
     if type(temp_dir) == str:
         return f"Cannot add duplicate alias: \"{alias}\" tied to \"{temp_dir}\""
@@ -31,8 +29,6 @@ def add_to_csv(f_dir, alias, out_dir=os.getcwd()):
     return f"Added alias \"{alias}\" tied to \"{out_dir}\""
 
 def rm_frm_csv(f_dir, alias):
-    if alias == "alias":
-        return "cannot remove an alias named \"alias\""
     pairs = list()
     directory = None
     with open(f_dir, 'r') as inp:
@@ -89,8 +85,6 @@ def main():
         elif parameters[0] == "add":
             msg = add_to_csv(storage_dir, parameters[1])
             print(msg)
-    
-
 
 if __name__ == "__main__":
     storage_dir = init()
