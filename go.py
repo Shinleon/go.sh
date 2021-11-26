@@ -88,6 +88,8 @@ def main():
         elif parameters[0] == "add":
             msg = add_to_csv(storage_dir, parameters[1])
             print(msg)
+        else:
+            print('Go only takes commands of \'add\' and \'rm\'.')
 
 if __name__ == "__main__":
     storage_dir = init()

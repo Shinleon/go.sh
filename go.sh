@@ -8,8 +8,12 @@
 #     echo $argument 
 # done
 
-PY_GO="$HOME/bin/go/go.py"
+GO_LOC="$HOME/bin/go"
+
+PY_GO="$GO_LOC/go.py"
+C_GO="$GO_LOC/go.out"
 PYTHON="python3"
+
 if [ $# -gt 2 ]
 then
     echo "This script doesn't need more than two parameters"
@@ -61,5 +65,4 @@ else
 
     echo $a
 fi
-
-./go.out
+$C_GO $@
