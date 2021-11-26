@@ -65,4 +65,3 @@ else
 
     echo $a
 fi
-$C_GO $@
