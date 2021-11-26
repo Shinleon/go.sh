@@ -4,6 +4,8 @@
 #include <dirent.h>  // https://stackoverflow.com/a/4204758
                      // https://faq.cprogramming.com/cgi-bin/smartfaq.cgi?answer=1046380353&id=1044780608
 
+// https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance
+
 int main(int argc, char *argv[])
 {
   char str [80];
