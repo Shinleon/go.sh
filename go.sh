@@ -61,3 +61,5 @@ else
 
     echo $a
 fi
+
+./go.out

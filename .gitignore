@@ -1,1 +1,4 @@
 go_data/
+/o_files
+*.o
+*.out

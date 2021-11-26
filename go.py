@@ -1,15 +1,18 @@
 import sys
 import os
 import csv
+import pathlib
 
 def init():
 
-    csv_location = 'bin/go/go_data'
-    csv_loc_true = os.path.join(os.path.expanduser('~'), csv_location)
+    csv_location = 'bin/go/go_data'   # directory where csv lives
+    csv_name = 'directory_alias.csv'  # csv file's name
+    home = os.path.expanduser('~')
+
+    csv_loc_true = os.path.join(home, csv_location)
     if not os.path.exists(csv_loc_true):
         os.mkdir(csv_loc_true)
-    csv_name = 'directory_alias.csv'
-    return os.path.join(os.path.expanduser('~'), csv_location, csv_name)
+    return os.path.join(home, csv_location, csv_name)
 
 def in_csv(f_dir, alias):
     with open(f_dir, 'r') as inp:
@@ -92,5 +95,10 @@ if __name__ == "__main__":
         with open(storage_dir, 'w', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=',',
                                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    elif os.path.exists(storage_dir):
+        if not pathlib.Path(storage_dir).is_file():
+            print(f'directory {storage_dir} isn\'t a file but it exists')
+            sys.exit(1)
     main()
+
     sys.exit(0)
