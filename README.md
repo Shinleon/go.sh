@@ -1,6 +1,6 @@
 # go.sh
 
-Personal navigator
+Personal navigator (Getting rewritten in C because I cannot add in the levenshtein distance correction how I want to if it's in Python)
 
 ## Installation instructions
 
@@ -48,4 +48,4 @@ confusing the script on where it is you're tring to go.
 ## Things to add
 - recommendations if you misspell things. 
 - Fuzzy search(?) 
-- tab autocomplete for aliases not just directories
+- tab autocomplete for aliases not just directories (https://stackoverflow.com/a/31075108)

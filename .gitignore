@@ -1,4 +1,5 @@
 go_data/
 /o_files
+/temp
 *.o
 *.out
