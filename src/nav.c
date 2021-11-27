@@ -7,6 +7,15 @@
 
 // https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance
 
+// https://datatracker.ietf.org/doc/html/rfc4180#ref-4  definition of csv 
+// extra csv info V-V below V~V
+// https://www.cloudbakers.com/blog/everything-you-didnt-want-to-have-to-know-about-csv
+
+
+// look into fseek, ftell; maybe can speed up search by creating some
+// auxillary data and organizing the csv?
+
+// look into errno so we can always tell what kind of errors are happening
 
 // zeroth argument is the compiled .out file
 // first argument is the csv location
@@ -15,8 +24,7 @@ int main(int argc, char *argv[])
 {
   char* csv_loc = argv[1];
   
-  char* buf = NULL;
-  buf=getcwd(NULL,0);
+  char* buf = getcwd(NULL, 0);
   fprintf(stdout, "current directory is %s\n", buf);
   free(buf);
   fprintf(stdout, "csv is located @ '%s'\n", csv_loc);
