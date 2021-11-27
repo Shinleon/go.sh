@@ -1,7 +1,7 @@
 # go.sh
 
 Personal navigator (Getting rewritten in C because I cannot add in the levenshtein distance correction how I want to if it's in Python)
-
+*NOTICE: This version doesn't work yet. This notice will be removed when it does*
 ## Installation instructions
 
 Personally, I recommend creating a '/bin' folder in the $HOME directory and then creating a directory for this specific script inside of that 'bin' folder.

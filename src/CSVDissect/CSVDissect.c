@@ -12,10 +12,8 @@
 //  different CSV settings require different things; also the quote char isn't always
 //  the quotation symbol. 
 
-struct CSVFileReader *makeCSVFileReader(
-  const char *file, int headers, char quoteChar, enum CSVQuotingStyle style)
+char* stringFromFile(const char *file)
 {
-  struct CSVFileReader *ret = malloc(sizeof(struct CSVFileReader));
   FILE *csv_file = fopen(file, "r");
   if (csv_file == NULL)
   {
@@ -36,17 +34,28 @@ struct CSVFileReader *makeCSVFileReader(
   } while (1);
 
   fclose(csv_file);
-  char* temp = stringFromStringBuilder(t);
+
+  char* ret = stringFromStringBuilder(t);
+  freeStringBuilder(t);
+
+  return ret;
+}
+
+struct CSVFileReader *makeCSVFileReader(
+  const char *file, char quoteChar)
+{
+  struct CSVFileReader *ret = malloc(sizeof(struct CSVFileReader));
+  
+  char* temp = stringFromFile(file);
   fprintf(stdout, "%s", temp);
   free(temp);
-  freeStringBuilder(t);
   return ret;
 }
 
 int main(void)
 {
   const char *f_name = "../../nav_data/directory_alias.csv";
-  makeCSVFileReader(f_name, 0, '|', QUOTE_MINIMAL);
+  makeCSVFileReader(f_name, '|');
 
   return 0;
 }
