@@ -10,7 +10,7 @@ ifdef DEBUG
 endif
 
 TARGET = test.out
-FILES = CSVDissect.c ../stringBuilder/StringBuilder.c
+FILES = CSVReader.c ../stringBuilder/StringBuilder.c
 
 # When we just run "make", what gets built? 
 # This is a "phony" target

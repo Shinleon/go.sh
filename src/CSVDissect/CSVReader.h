@@ -8,10 +8,9 @@ struct CSVData {
     char*** all_data;       // holds the data
 };
 
-struct CSVFileReader
+struct CSVReader
 {
     FILE* f;
-    struct CSVData* data;
 };
 
 // needed for CSV writer
@@ -23,7 +22,7 @@ enum CSVQuotingStyle {
     QUOTE_ALL = 0
 }; 
 
-struct CSVFileReader* makeCSVFileReader(
-    const char *file, char quoteChar);
+struct CSVReader* makeCSVReader(
+    const char *file, char delimiter, char quoteChar);
 
 #endif
