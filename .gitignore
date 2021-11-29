@@ -5,3 +5,4 @@ nav_data/
 *.out
 .vscode/
 log.txt
+.DS_Store
