@@ -34,13 +34,19 @@ struct StringBuilder* makeStringBuilder() {
     return ret;
 }
 
+void resetStringBuilder(struct StringBuilder* sb) {
+    sb->head = NULL;
+    sb->tail = NULL;
+    sb->length = 0;
+}
+
 char* stringFromStringBuilder(struct StringBuilder* sb)
 {
     if(sb == NULL)
     {
         return NULL;
     }
-    char *ret = malloc(sizeof(char)*(sb->length+1));
+    char *ret = malloc(sizeof(char)*(sb->length));
     struct StringNode* t = sb->head;
     int i = 0;
     for(; i < sb->length; i++)
@@ -48,7 +54,7 @@ char* stringFromStringBuilder(struct StringBuilder* sb)
         ret[i] = t->val;
         t = t->next;
     }
-    ret[i] = '\0';
+    ret[i] = 0;
     return ret;
 }
 
@@ -70,6 +76,31 @@ struct StringBuilder* addToStringBuilder(struct StringBuilder* sb, char c)
     return sb;
 }
 
+char getLastChar(struct StringBuilder* sb) {
+    return sb->tail->val;
+}
+
+char* flushStringBuilder(struct StringBuilder* sb) {
+    char *ret = stringFromStringBuilder(sb);
+    while (sb->head) {
+        sb->head = freeStringNode(sb->head);
+    }
+    sb->tail = NULL;
+    return ret;
+}
+
+void printNodes(struct StringBuilder *sb, FILE *f) {
+    struct StringNode* t = sb->head;
+    int i = 0;
+    while(t != sb->tail)
+    {
+        fprintf(f, "{#:%d=%c}->", i, t->val);
+        ++i;
+        t = t->next;
+    }
+    fprintf(f, "\\\n");
+}
+
 void freeStringBuilder(struct StringBuilder* sb)
 {
     struct StringNode* t = sb->head;
@@ -77,8 +108,6 @@ void freeStringBuilder(struct StringBuilder* sb)
     {
         t = freeStringNode(t);
     }
-    sb->head = NULL;
-    sb->tail = NULL;
-    sb->length = 0;
+    resetStringBuilder(sb);
     free(sb);
 }

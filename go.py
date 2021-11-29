@@ -5,7 +5,7 @@ import pathlib
 
 def init():
 
-    csv_location = 'bin/go/go_data'   # directory where csv lives
+    csv_location = 'bin/nav/nav_data'   # directory where csv lives
     csv_name = 'directory_alias.csv'  # csv file's name
     home = os.path.expanduser('~')
 
@@ -56,6 +56,7 @@ def read_directories(f_dir):
     with open(f_dir, 'r') as inp:
         csv_reader = csv.reader(inp)
         for row in csv_reader:
+            print(len(row))
             if len(row[0]) > max_alias_len:
                 max_alias_len = len(row[0])
             if len(row[1]) > max_path_len:
@@ -75,7 +76,7 @@ def main():
             print(
                 data[0]+ spaces(pad_alias - len(data[0])) +
                 spaces(4) + spaces(pad_path-len(data[1])) + 
-                data[1])
+                data[1], len(data))
     elif len(parameters) == 1:
         #print("We should move to", parameters[0])
         directory = in_csv(storage_dir, parameters[0])

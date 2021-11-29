@@ -3,4 +3,4 @@ nav_data/
 /temp
 *.o
 *.out
-.vscode
+.vscode/

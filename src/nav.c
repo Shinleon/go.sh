@@ -11,9 +11,11 @@
 // extra csv info V-V below V~V
 // https://www.cloudbakers.com/blog/everything-you-didnt-want-to-have-to-know-about-csv
 
+// look here for something interesting on c and typing(?)
+// https://softwareengineering.stackexchange.com/questions/117024/why-was-the-c-syntax-for-arrays-pointers-and-functions-designed-this-way
 
 // look into fseek, ftell; maybe can speed up search by creating some
-// auxillary data and organizing the csv?
+// auxillary data file and organizing the csv?
 
 // look into errno so we can always tell what kind of errors are happening
 
