@@ -6,16 +6,18 @@
 
 int main()
 {
-    char* g = "12345678\n90\n";
+    char *g = "12345678\n90\n";
     fprintf(stdout, "%s, %lu\n", g, strlen(g));
     struct StringBuilder *temp = makeStringBuilder();
+    FILE *f = fopen("log.txt", "w+");
     for(int i = 0; (unsigned long)i < strlen(g); i++)
     {
         addToStringBuilder(temp, g[i]);
-        printNodes(temp, stdout);
+        printNodes(temp, f);
     }
     char *test = stringFromStringBuilder(temp);
-    fprintf(stdout, "test=\"%s\", %lu\n", test, strlen(test));
+    fprintf(f, "test=\"%s\", %lu\n", test, strlen(test));
+    fclose(f);
     free(test);
     freeStringBuilder(temp);
 }

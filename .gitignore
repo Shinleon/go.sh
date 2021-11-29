@@ -4,3 +4,4 @@ nav_data/
 *.o
 *.out
 .vscode/
+log.txt
