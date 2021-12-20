@@ -1,4 +1,6 @@
-go_data/
+nav_data/
 /o_files
+.vscode/
+temp/
 *.o
 *.out

@@ -8,7 +8,7 @@
 #     echo $argument 
 # done
 
-GO_LOC="$HOME/bin/go"
+GO_LOC="$HOME/bin/nav"
 
 PY_GO="$GO_LOC/go.py"
 C_GO="$GO_LOC/go.out"

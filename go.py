@@ -5,7 +5,7 @@ import pathlib
 
 def init():
 
-    csv_location = 'bin/go/go_data'   # directory where csv lives
+    csv_location = 'bin/nav/nav_data'   # directory where csv lives
     csv_name = 'directory_alias.csv'  # csv file's name
     home = os.path.expanduser('~')
 
