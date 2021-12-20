@@ -10,14 +10,15 @@ ifdef DEBUG
 endif
 
 TARGET = test.out
-FILES = StringBuilderMain.c StringBuilder.c
+FILES = StringBuilderMain.c StringBuilder.c  
+AUX = StringBuilder.h
 
 # When we just run "make", what gets built? 
 # This is a "phony" target
 # that just tells make what other targets to build.
 all: $(TARGET)
 
-$(TARGET) : $(FILES)
+$(TARGET) : $(FILES) $(AUX)
 	$(CC) $(CFLAGS) -o $(TARGET) $(FILES)
 
 clean :

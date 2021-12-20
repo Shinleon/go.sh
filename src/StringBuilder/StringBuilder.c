@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
 
 #include "StringBuilder.h"
 
@@ -46,9 +48,15 @@ char* stringFromStringBuilder(struct StringBuilder* sb)
     {
         return NULL;
     }
-    char *ret = malloc(sizeof(char)*(sb->length));
+    char *ret = malloc(sizeof(char)*(sb->length + 1));
+    if (ret == NULL)
+    {
+        fprintf(stderr, "ERROR, couldn't malloc for char* creation in StringBuilder: %s.\n",
+        strerror(errno));
+        
+    }
     struct StringNode* t = sb->head;
-    int i = 0;
+    unsigned int i = 0;
     for(; i < sb->length; i++)
     {
         ret[i] = t->val;
@@ -86,6 +94,7 @@ char* flushStringBuilder(struct StringBuilder* sb) {
         sb->head = freeStringNode(sb->head);
     }
     sb->tail = NULL;
+    sb->length = 0;
     return ret;
 }
 

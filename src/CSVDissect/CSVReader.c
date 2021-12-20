@@ -7,12 +7,12 @@
 #include "CSVReader.h"
 #include "../StringBuilder/StringBuilder.h"
 
-// create a CSV_StringReader 
+// create a CSV_StringReader
 // look at csv.QUOTE_MINIMAL in https://docs.python.org/3/library/csv.html
 //  different CSV settings require different things; also the quote char isn't always
-//  the quotation symbol. 
+//  the quotation symbol.
 
-char* stringFromFile(const char *file)
+char *stringFromFile(const char *file)
 {
   FILE *csv_file = fopen(file, "r+");
   if (csv_file == NULL)
@@ -21,11 +21,12 @@ char* stringFromFile(const char *file)
     return NULL;
   }
 
-  char c; struct StringBuilder* t = makeStringBuilder();
+  char c;
+  struct StringBuilder *t = makeStringBuilder();
   do
   {
     c = fgetc(csv_file); // get next char
-    if (feof(csv_file)) // test for eof
+    if (feof(csv_file))  // test for eof
     {
       break;
     }
@@ -34,7 +35,7 @@ char* stringFromFile(const char *file)
 
   fclose(csv_file);
 
-  char* ret = stringFromStringBuilder(t);
+  char *ret = stringFromStringBuilder(t);
   freeStringBuilder(t);
 
   return ret;
@@ -50,32 +51,63 @@ struct CSVReader *makeCSVReader(const char *file, char delimiter, char quoteChar
     return NULL;
   }
   ret->f = csv_file;
+  ret->delim = delimiter;
+  ret->qchar = quoteChar;
   return ret;
 }
 
-char* nextLine(struct CSVReader* reader, FILE* log) {
-  struct StringBuilder* temp = makeStringBuilder();
+char *nextLine(struct CSVReader *reader)
+{
+  struct StringBuilder *temp = makeStringBuilder();
   char c = '\0';
-  while (!(feof(reader->f))) {
+  int in_quote = 0;
+  while (!(feof(reader->f)))
+  {
+    // 1) if we find
     c = fgetc(reader->f); // get next char
-    if (c == '\n' || c=='\r') // test for eof or newline
+    if (c == '\r')
+    { // check for carriage return (CRLF style returns)
+      c = fgetc(reader->f);
+      if (c == '\n')
+      {
+        break; // "\r\n" induces a next line behavior
+      }
+      else
+      {
+        // I'm not sure if you can have a '\r' in the middle of a csv...
+        //  It's behavior is to jump back to the beginning of the line, so
+        //  for now we'll just ignore it and not print it to the file ??
+        ungetc(c, reader->f); // gotta return to before the anticipatory read
+      }
+    }
+    else if (c == '\n')
     {
       break;
     }
-    else {
-      if (c=='\n' || c == '\r')
+    else
+    { // we have a valid char, should go inside the stringBuilder
+      if (c == reader->delim)
       {
-        fprintf(log, "wtf");
+        // check if we're inside a quote,
+        //  if we are, ignore it, otherwise, trigger a StringBuilder flush/reset
+      }
+      else if (c == reader->qchar)
+      {
+        // check if we're inside a quote,
+        //  if we are, end the quote and get rid of trailing delimiter,
+        //    basically like the "\r\n" fiasco. Also, set in_quote to 0
+        //  if we're not, we need to make sure nothing is currently in the
+        //    string builder and then start adding to it, after setting in_quote to 1
       }
       addToStringBuilder(temp, c);
-      printNodes(temp, log);
     }
-  } 
-  fprintf(stdout, "The value of c is %d, length = %d\n", c, temp->length);
-  char* ret = stringFromStringBuilder(temp);
-  setvbuf(stdout, NULL, _IOLBF, 0);
-  fprintf(stdout, "%s", ret);
-  free(temp);
+  }
+  if (feof(reader->f)) // if we are at the end of the file, return a NULL
+  {
+    return NULL;
+  } // Otherwise, return the fields as an array (for now a string)
+  char *ret = stringFromStringBuilder(temp);
+  freeStringBuilder(temp);
   return ret;
 }
 
@@ -83,13 +115,13 @@ int main(void)
 {
   const char *f_name = "../../nav_data/directory_alias.csv";
   struct CSVReader *reader = makeCSVReader(f_name, ',', '|');
-  FILE* log = fopen("./log.txt", "w+");
-  char *x = NULL;
-  do {
-    x = nextLine(reader, log);
-    fprintf(log, "\">%s<\", %lu", x, strlen(x));
-  } while(x != NULL && strlen(x) != 0);
-  free(x);
-  fprintf(stdout, ">>> end >>>");
+  char *x = nextLine(reader);
+  while (x != NULL)
+  {
+    fprintf(stdout, "%s\n", x);
+    free(x);
+    x = nextLine(reader);
+  }
+  fprintf(stdout, ">>> end >>>\n");
   return 0;
 }

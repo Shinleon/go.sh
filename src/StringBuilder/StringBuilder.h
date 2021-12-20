@@ -5,7 +5,7 @@ struct StringBuilder
 {
     struct StringNode* head;
     struct StringNode* tail;
-    int length;
+    unsigned int length;
 };
 
 struct StringBuilder* makeStringBuilder();

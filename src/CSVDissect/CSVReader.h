@@ -11,6 +11,8 @@ struct CSVData {
 struct CSVReader
 {
     FILE* f;
+    char delim;
+    char qchar;
 };
 
 // needed for CSV writer
