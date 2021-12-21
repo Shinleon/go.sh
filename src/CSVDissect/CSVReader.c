@@ -56,7 +56,7 @@ struct CSVReader *makeCSVReader(const char *file, char delimiter, char quoteChar
   return ret;
 }
 
-char *nextLine(struct CSVReader *reader)
+char *nextLine_temp(struct CSVReader *reader)
 {
   struct StringBuilder *temp = makeStringBuilder();
   char c = '\0';
@@ -77,7 +77,6 @@ char *nextLine(struct CSVReader *reader)
         // I'm not sure if you can have a '\r' in the middle of a csv...
         //  It's behavior is to jump back to the beginning of the line, so
         //  for now we'll just ignore it and not print it to the file ??
-        ungetc(c, reader->f); // gotta return to before the anticipatory read
       }
     }
     else if (c == '\n')
@@ -115,13 +114,14 @@ int main(void)
 {
   const char *f_name = "../../nav_data/directory_alias.csv";
   struct CSVReader *reader = makeCSVReader(f_name, ',', '|');
-  char *x = nextLine(reader);
+  char *x = nextLine_temp(reader);
   while (x != NULL)
   {
     fprintf(stdout, "%s\n", x);
     free(x);
-    x = nextLine(reader);
+    x = nextLine_temp(reader);
   }
   fprintf(stdout, ">>> end >>>\n");
+  fprintf(stdout, "%c\n", '\\');
   return 0;
 }
