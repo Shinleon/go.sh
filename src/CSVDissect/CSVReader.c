@@ -41,7 +41,7 @@ char *stringFromFile(const char *file)
   return ret;
 }
 
-struct CSVReader *makeCSVReader(const char *file, char delimiter, char quoteChar)
+struct CSVReader *makeCSVReader(const char *file,  struct CSVDialect* dialect)
 {
   struct CSVReader *ret = malloc(sizeof(struct CSVReader));
   FILE *csv_file = fopen(file, "r");
@@ -51,8 +51,7 @@ struct CSVReader *makeCSVReader(const char *file, char delimiter, char quoteChar
     return NULL;
   }
   ret->f = csv_file;
-  ret->delim = delimiter;
-  ret->qchar = quoteChar;
+  ret->dialect = dialect;
   return ret;
 }
 
@@ -85,12 +84,12 @@ char *nextLine_temp(struct CSVReader *reader)
     }
     else
     { // we have a valid char, should go inside the stringBuilder
-      if (c == reader->delim)
+      if (c == reader->dialect->delimiter)
       {
         // check if we're inside a quote,
         //  if we are, ignore it, otherwise, trigger a StringBuilder flush/reset
       }
-      else if (c == reader->qchar)
+      else if (c == reader->dialect->quoteChar)
       {
         // check if we're inside a quote,
         //  if we are, end the quote and get rid of trailing delimiter,
@@ -113,15 +112,26 @@ char *nextLine_temp(struct CSVReader *reader)
 int main(void)
 {
   const char *f_name = "../../nav_data/directory_alias.csv";
-  struct CSVReader *reader = makeCSVReader(f_name, ',', '|');
-  char *x = nextLine_temp(reader);
-  while (x != NULL)
+  struct CSVDialect dialect =
   {
-    fprintf(stdout, "%s\n", x);
-    free(x);
-    x = nextLine_temp(reader);
+    .delimiter=',', // default to ','
+    .lineTerminator="\r\n",
+    .quoteChar='\'',
+    .doubleQuote=1,
+    .escapeChar='\\',
+    .skipInitialSpace=0,
+    .commentChar='#'  // who the heck
+  };
+    struct CSVReader *reader = makeCSVReader(f_name, &dialect);
+    char *x = nextLine_temp(reader);
+
+    while (x != NULL)
+    {
+      fprintf(stdout, "%s\n", x);
+      free(x);
+      x = nextLine_temp(reader);
+    }
+    fprintf(stdout, ">>> end >>>\n");
+    fprintf(stdout, "%c\n", '\\');
+    return 0;
   }
-  fprintf(stdout, ">>> end >>>\n");
-  fprintf(stdout, "%c\n", '\\');
-  return 0;
-}

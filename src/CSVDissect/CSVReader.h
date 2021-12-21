@@ -15,13 +15,17 @@
 struct CSVDialect
 {
     char delimiter;       // default to ','
-    char *lineTerminator; // default to "\r\n"
+    char *lineTerminator; // default to "\r\n" aka CRFL
     char quoteChar;       // default to '"'
-    int doubleQuote;      // default to 1/true
+    int doubleQuote;      // default to 1 aka. true
     char escapeChar;      // default to '\\'
-    char nullSequence;    // default to '\0'. shouldn't be set by default
-    int skipInitialSpace; // default to 0/false
+    // //  Do we need a null sequence? why don't people just not put anything in between two delimiters?
+    // //  Cause they can't properly use escape chars? what? why?
+    // char nullSequence;    // ~~default to ''.~~ shouldn't be set by default
+    int skipInitialSpace; // default to 0 aka. false
     // int header              // it doesnt' matter if there is a header, user can parse
+    // Who the heck is writing comments in a .csv file and why. What is so important that you can't
+    //  write external documentation about the .csv file.
     char commentChar; // default to '#'? Not sure what else to do
     // int caseSensitiveHeader; // it doesn't matter, as headers are of no concern
     char *csvddfVersion;  // default to NULL, Not sure if this is going to be useful
@@ -45,6 +49,6 @@ struct CSVReader
 // }; 
 
 struct CSVReader* makeCSVReader(
-    const char *file, char delimiter, char quoteChar);
+    const char *file, struct CSVDialect* d);
 
 #endif
